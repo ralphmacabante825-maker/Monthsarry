@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Happy Monthsary 💖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink-1: #ffd6e8;
+    --pink-2: #ffe6f0;
+    --accent: #ff5fa2;
+    --muted: #f8dbe3;
+    --glass: rgba(255,255,255,0.65);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:"Poppins",sans-serif}
+  html,body{height:100%}
+  body{
+    background: linear-gradient(160deg,var(--pink-1),var(--pink-2));
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    color:#333;
+    line-height:1.3;
+  }
+
+  /* Soft cloud background */
+  .background {
+    position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+  }
+  .cloud {
+    position:absolute;
+    width:220px;
+    height:80px;
+    background:linear-gradient(180deg,#fff,#ffeef8);
+    border-radius:100px;
+    filter: blur(6px);
+    opacity:0.9;
+    transform: translateY(-10vh);
+    animation: drift linear infinite;
+  }
+  .cloud.c1{left:-10%; top:5%; animation-duration:28s}
+  .cloud.c2{left:60%; top:12%; animation-duration:36s; transform:scale(0.85)}
+  .cloud.c3{left:20%; top:35%; animation-duration:32s; transform:scale(0.95)}
+  .cloud.c4{left:75%; top:50%; animation-duration:40s; transform:scale(0.8)}
+  @keyframes drift{
+    0%{transform:translateX(-20vw) translateY(0)}
+    100%{transform:translateX(120vw) translateY(2vh)}
+  }
+
+  /* Floating hearts */
+  .hearts {position:fixed; inset:0; z-index:0; pointer-events:none;}
+  .heart {
+    position:absolute;
+    width:18px; height:18px;
+    transform: rotate(45deg);
+    background:linear-gradient(180deg,#ff9ec9,#ff7aa6);
+    border-radius:4px 4px 0 0;
+    opacity:0.9;
+    animation: rise linear infinite;
+  }
+  @keyframes rise{
+    0%{transform:translateY(100vh) scale(0.6) rotate(45deg); opacity:0}
+    10%{opacity:0.9}
+    100%{transform:translateY(-10vh) scale(1.1) rotate(45deg); opacity:0}
+  }
+
+  /* ENTRY overlay */
+  #entry {
+    position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+    z-index:50; padding:24px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,245,250,0.4));
+    backdrop-filter: blur(6px);
+  }
+  .entry-card {
+    width:100%; max-width:420px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.82));
+    border-radius:18px; padding:18px;
+    box-shadow: 0 8px 30px rgba(255,125,175,0.12);
+    text-align:center;
+    border: 1px solid rgba(255,133,170,0.12);
+  }
+  .entry-title{
+    color:var(--accent); font-size:20px; font-weight:700; margin-bottom:8px;
+  }
+  .entry-sub{color:#aa5a86; font-size:13px; margin-bottom:14px}
+  .name-input{
+    width:100%; padding:14px 12px; border-radius:12px; border:1px solid rgba(255,120,160,0.2);
+    font-size:16px; text-align:center; background:linear-gradient(180deg,#fff,#fff9);
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.03);
+    margin-bottom:12px;
+  }
+  .enter-btn{
+    width:100%; padding:12px; border-radius:12px; border:none; font-weight:700;
+    background:linear-gradient(90deg,#ff7fb0,#ff5fa2);
+    color:white; font-size:16px; box-shadow: 0 6px 18px rgba(255,95,162,0.18);
+  }
+  .hint{font-size:13px;color:#c0538e;margin-top:10px; min-height:18px}
+
+  /* POPUPS */
+  .popup {
+    position:fixed; inset:0; z-index:45; display:flex; align-items:center; justify-content:center;
+    padding:20px; background: linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,250,251,0.95));
+    backdrop-filter: blur(4px);
+  }
+  .popup .card {
+    width:100%; max-width:360px; background:var(--glass); border-radius:18px; padding:14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-align:center; border:1px solid rgba(255,120,160,0.12);
+  }
+  .popup img {
+    width:100%; height:auto; border-radius:12px; display:block; margin-bottom:12px;
+  }
+  .popup .swipe-text{
+    color:var(--accent); font-weight:600; letter-spacing:0.2px;
+  }
+  .popup .small{
+    font-size:13px; color:#9b5b82; margin-top:8px;
+  }
+
+  /* Video section */
+  #videoSection {
+    position:fixed; inset:0; z-index:42; display:flex; align-items:center; justify-content:center;
+    padding:18px; background: linear-gradient(160deg, rgba(255,230,240,0.9), rgba(255,245,250,0.95));
+    backdrop-filter: blur(4px);
+  }
+  #videoWrap {
+    width:100%; max-width:520px; border-radius:14px; overflow:hidden; background:white; padding:8px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  }
+  video{width:100%; height:auto; display:block; border-radius:10px; background:#000}
+
+  /* MAIN */
+  main{
+    position:relative; z-index:1; padding:22px 14px 80px; min-height:100vh;
+  }
+  .container{max-width:700px; margin:0 auto}
+  .header {
+    text-align:center; margin:14px 0 8px;
+  }
+  .header h1{color:var(--accent); font-size:20px; margin-bottom:6px}
+  .header p{color:#b85f92; font-size:14px}
+
+  /* Story feed: instagram-like cards */
+  .feed {margin-top:18px; display:grid; gap:18px}
+  .card {
+    background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
+    border-radius:16px; padding:10px; border:1px solid rgba(255,140,170,0.08);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+    overflow:hidden;
+  }
+  .card .photo {
+    width:100%; height: auto; aspect-ratio: 16/10; object-fit:cover; border-radius:12px;
+    display:block; opacity:0; transform:translateY(18px) scale(0.99); transition: all .7s cubic-bezier(.2,.9,.2,1);
+  }
+  .card.visible .photo {opacity:1; transform:none}
+  .caption{padding:10px 6px 6px; color:#9b5b82; font-size:14px}
+  .caption small{display:block; color:#a06698; font-size:12px; margin-top:6px}
+
+  /* Ending */
+  .final {
+    text-align:center; margin-top:18px; padding:22px; border-radius:14px;
+    background: linear-gradient(180deg,#fff0f6,#ffeef8); border:1px solid rgba(255,120,160,0.08);
+  }
+  .final h2{color:var(--accent); font-size:18px; margin-bottom:10px}
+  .final p{color:#b85f92; font-size:14px}
+
+  /* Responsive tweaks */
+  @media (max-width:420px){
+    .cloud{width:160px;height:58px}
+    .entry-card{padding:14px}
+    .name-input{padding:12px}
+    .enter-btn{padding:12px}
+    .card{padding:8px}
+  }
+</style>
+</head>
+<body>
+
+  <!-- decorative floating elements -->
+  <div class="background" aria-hidden="true">
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+    <div class="cloud c3"></div>
+    <div class="cloud c4"></div>
+  </div>
+
+  <div class="hearts" aria-hidden="true">
+    <div class="heart" style="left:8%; animation-duration:12s; animation-delay:0s"></div>
+    <div class="heart" style="left:22%; animation-duration:16s; animation-delay:3s"></div>
+    <div class="heart" style="left:38%; animation-duration:14s; animation-delay:1s"></div>
+    <div class="heart" style="left:55%; animation-duration:18s; animation-delay:5s"></div>
+    <div class="heart" style="left:72%; animation-duration:15s; animation-delay:2s"></div>
+    <div class="heart" style="left:86%; animation-duration:20s; animation-delay:4s"></div>
+  </div>
+
+  <!-- ENTRY overlay -->
+  <div id="entry" role="dialog" aria-modal="true">
+    <div class="entry-card" id="entryCard">
+      <div class="entry-title">Happy 1st Monthsarry 💕</div>
+      <div class="entry-sub">Please type your full name to enter (with middle initial)</div>
+      <input id="nameInput" class="name-input" type="text" inputmode="text" autocomplete="name"
+             placeholder="Dare you to get this one right first try" />
+      <button class="enter-btn" id="enterBtn" aria-label="Enter">Enter</button>
+      <div class="hint" id="hint"></div>
+    </div>
+  </div>
+
+  <!-- POPUPS -->
+  <div class="popup" id="popup1" style="display:none">
+    <div class="card">
+      <img src="J1.jpg" alt="Surprise image 1">
+      <div class="swipe-text">Swipe or tap to be gone 👉</div>
+      <div class="small">(Tap or swipe left on the image)</div>
+    </div>
+  </div>
+
+  <div class="popup" id="popup2" style="display:none">
+    <div class="card">
+      <img src="J2.jpg" alt="Surprise image 2">
+      <div class="swipe-text">I found this and you look so stunning</div>
+      <div class="small">Found this and you look so prettyy as always</div>
+    </div>
+  </div>
+
+  <div class="popup" id="popup3" style="display:none">
+    <div class="card">
+      <img src="J3.jpg" alt="Surprise image 3">
+      <div class="swipe-text">Cute cute baby nakon</div>
+      <div class="small">Mweheheh cute-cute</div>
+    </div>
+  </div>
+
+  <!-- VIDEO -->
+  <div id="videoSection" style="display:none">
+    <div id="videoWrap">
+      <!-- replace src with your apology video file -->
+      <video id="sorryVideo" controls playsinline webkit-playsinline preload="auto">
+        <source src="sorry.mp4" type="video/mp4">
+        <!-- If you don't have a file yet, the browser will show controls with no playback -->
+      </video>
+      <div style="text-align:center; padding:8px 6px;">
+        <div style="color:#b85f92; font-weight:600; margin-bottom:6px;">I'm sorry for using the pics po huhu 💔</div>
+        <div style="color:#9b5b82; font-size:13px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN content -->
+  <main id="mainContent" style="display:none">
+    <div class="container">
+      <div class="header">
+        <h1>Happy Monthsarry 💞</h1>
+        <p>Hi po baby ko, I just wanna say how happy I am being with you. All the yaps, and moments with you are all very special to me.<br>
+            I know you're very busy ngayong week, and I wanted to give you something at the very least kahit malayo tayo for our monthsarry.<br>
+            I hope that you'll like it.<strong>(You can press the images to view it fully)</strong> </p>
+      </div>
+
+      <!-- audio placeholder - will try to play when user gesture has occurred (video or button) -->
+      <audio id="bgMusic" loop preload="auto">
+        <source src="ANTHEM.mp3" type="audio/mpeg">
+        <!-- Replace with actual music file -->
+      </audio>
+
+      <div class="feed" id="feed">
+        <!-- Repeat 11 placeholder cards (replace src & captions later) -->
+        <article class="card">
+          <img class="photo" src="M1.jpg" alt="Memory 1">
+          <div class="caption"><strong>Memory 1</strong><small>The First Gift</small></div>
+        </article>
+
+        <article class="card">
+          <img class="photo" src="M2.jpg" alt="Memory 2">
+          <div class="caption"><strong>Memory 2</strong><small>TBH po baby ko, Iv'e made some gifts for you that I've even surprised my self that I could think of them,<br>
+            but believe it or not po, this was the very first gift that I've actually wanted to put more thought onto. Seeing your name on a pen and having "Ozette" seemed so<br>
+            you to me, like I mean It felt so cool for you to have a pesonalized pen with that name, it sounds like a famous writer, that's why I got it..</small></div>
+        </article>
+
+        <article class="card">
+          <img class="photo" src="M3.jpg" alt="Memory 3">
+          <div class="caption"><strong>Memory 3</strong><small>I remembered how much this single paper meant to me, because like I was receiving something from you that you made, and it had my nickname which was so adorableee.</small></div>
+        </article>
+
+        <article class="card">
+          <img class="photo" src="M4.jpg" alt="Memory 4">
+          <div class="caption"><strong>Memory 4</strong><small>NGL I look like a child here, like a literal child po, ket si reinzel sinabi niya "ikaw to?' HAHAHAHHA".</small></div>
+        </article>
+
+        <article class="card">
+          <img class="photo" src="M5.jpg" alt="Memory 5">
+          <div class="caption"><strong>Memory 5</strong><small>Dito I couldn't keep my xomposure na and I was smiling sa fact na I was sitting next to you AAAAAAAA.<br>
+            Yes very torpe po I'm sorry mwehhehehe.</small></div>
+        </article>
+
+        <article class="card">
+          <img class="photo" src="M6.jpg" alt="Memory 6">
+          <div class="caption"><strong>Memory 6</strong><small>Remember this flower po? Actually this was suppposed to be a secret code for you to solve para sa christmas party, where in llike I'll keep giving you origamis<br>
+            until It says "I like you" Kasi I really palanned nun to ask if pwede manligaw. So much was planned po dito tbh, but ayun nalaman nakon na nag ask pala si ano kimo ng same na thing that day, kaya di natuloy po.</small></div>
+        </article>
+
+        <article class="card">
+          <img class="photo" src="M7.jpg" alt="Memory 7">
+          <div class="caption"><strong>Memory 7</strong><small>I always found my self looking at you or to what you are doing everytime we're near each-other, Idk po, but I can't help but look at you and be watch you like how are you so pretty po like YAVSDGGduh. I admire you so muchh .</small></div>
+        </article>
+
+        <article class="card">
+          <img class="photo" src="M8.jpg" alt="Memory 8">
+          <div class="caption"><strong>Memory 8</strong><small>HMMMMM, madame was planning on cutting me off(literally) HAHAHHAHA. Tbh during this night po, atat na atat po ako nun na makatabi ka kaya I was very much insistentt on sitting next to you, ket<br> 
+            e tease pa tayo huhu. Seeing you in that beautiful dress was just wow to me like you were so beautiful and It felt like that, that was the version of you I never got to see often. I was very much mesmerized and in awwee by the sight of you. <strong>"You're stunningly beutiful"</strong>.</small></div>
+        </article>
+
+        <article class="card">
+          <img class="photo" src="M9.jpg" alt="Memory 9">
+          <div class="caption"><strong>Memory 9</strong><small>Basing off from this image and comparing the length of the tree to your side, thus measuring the diameter of the angle of the sun minus the<br> length of negativity and multiplied by your adorable aura I have conducted that I am this short~</small></div>
+        </article>
+
+        <article class="card">
+          <img class="photo" src="M10.jpg" alt="Memory 10">
+          <div class="caption"><strong>Memory 10</strong><small>This pic is a prediction of the future pooo, AMENAMENAMENAMENAMENNNNNN gaugsduguagsdu, I miss you po:<<br>
+            I am forever happy that I have come to pursue you, and I can proudly say that everything was worth it. Loving you has made my life so much better than it was better, and <strong>I want to keep on cherishing you, loving you, and caring for you forever, I love you.</strong></small></div>
+        </article>
+
+        <article class="card">
+          <img class="photo" src="M11.jpg" alt="Memory 11">
+          <div class="caption"><strong>Memory 11</strong><small>Happy !st Monthsarry, I love you.</small></div>
+        </article>
+
+      </div>
+
+      <div class="final">
+        <h2>I’ll always be here for you 💖</h2>
+        <p>Happy Monthsary.</p>
+      </div>
+    </div>
+  </main>
+
+<script>
+  // --------------------------
+  // CONFIG: change this text to the exact full name required to unlock.
+  // Example: const correctName = "Maria Clara Santos";
+  // If you leave it as "Her Full Name", user must type that exact phrase.
+  // --------------------------
+  const correctName = "Jawea Ozette B. Irabon";
+
+const entry = document.getElementById('entry');
+const nameInput = document.getElementById('nameInput');
+const enterBtn = document.getElementById('enterBtn');
+const hint = document.getElementById('hint');
+
+const popups = [
+  document.getElementById('popup1'),
+  document.getElementById('popup2'),
+  document.getElementById('popup3')
+];
+const videoSection = document.getElementById('videoSection');
+const sorryVideo = document.getElementById('sorryVideo');
+const mainContent = document.getElementById('mainContent');
+const bgMusic = document.getElementById('bgMusic');
+
+// consumer-friendly: tap Enter or press Enter key
+enterBtn.addEventListener('click', tryEnter);
+nameInput.addEventListener('keydown', (e) => {
+  hint.textContent = '';
+  if (e.key === 'Enter') tryEnter();
+});
+
+function tryEnter(){
+  const val = nameInput.value.trim();
+  if (!val) {
+    hint.textContent = "Please type a name 😊";
+    return;
+  }
+  if (val.toLowerCase() === correctName.toLowerCase()) {
+    // success
+    entry.style.display = 'none';
+    // start popups sequence
+    showPopup(0);
+    // friendly small delay to ensure mobile can play media after gesture
+    userGestureOccurred();
+  } else {
+    hint.textContent = "Hmm... not quite. Try again 😚";
+    // playful shake
+    entryAnimateShake();
+  }
+}
+
+function entryAnimateShake(){
+  const card = document.getElementById('entryCard');
+  card.animate([
+    { transform: 'translateX(0)' },
+    { transform: 'translateX(-8px)' },
+    { transform: 'translateX(8px)' },
+    { transform: 'translateX(0)' }
+  ], { duration: 420, easing: 'cubic-bezier(.2,.8,.2,1)' });
+}
+
+// POPUP logic: support tap and horizontal swipe to dismiss
+function showPopup(index){
+  if (index >= popups.length) {
+    // after popups show video
+    showVideo();
+    return;
+  }
+  const popup = popups[index];
+  popup.style.display = 'flex';
+  const img = popup.querySelector('img');
+
+  // handler to dismiss on click/tap
+  const onTap = () => {
+    cleanup();
+    popup.style.display = 'none';
+    showPopup(index + 1);
+  };
+
+  // swipe detection (touch)
+  let startX = null;
+  function onTouchStart(e){
+    startX = e.touches[0].clientX;
+  }
+  function onTouchMove(e){
+    if (startX === null) return;
+    const dx = e.touches[0].clientX - startX;
+    img.style.transform = `translateX(${dx}px)`;
+    img.style.transition = 'transform 0s';
+  }
+  function onTouchEnd(e){
+    if (startX === null) return;
+    const endX = e.changedTouches[0].clientX;
+    const dx = endX - startX;
+    img.style.transition = 'transform 220ms ease';
+    img.style.transform = '';
+    startX = null;
+    if (Math.abs(dx) > 60) {
+      // consider swipe
+      cleanup();
+      popup.style.display = 'none';
+      showPopup(index + 1);
+    }
+  }
+
+  function cleanup(){
+    img.removeEventListener('click', onTap);
+    img.removeEventListener('touchstart', onTouchStart);
+    img.removeEventListener('touchmove', onTouchMove);
+    img.removeEventListener('touchend', onTouchEnd);
+  }
+
+  // attach
+  img.addEventListener('click', onTap);
+  img.addEventListener('touchstart', onTouchStart, {passive:true});
+  img.addEventListener('touchmove', onTouchMove, {passive:true});
+  img.addEventListener('touchend', onTouchEnd);
+}
+
+// VIDEO: show apology video and then reveal main content
+function showVideo(){
+  videoSection.style.display = 'flex';
+  // try to play: must be after user gesture (entry button or tap) to avoid autoplay block
+  const p = sorryVideo.play();
+  if (p !== undefined) {
+    p.catch(() => {
+      // If browser blocks autoplay with sound, show message and let user tap to play
+    });
+  }
+  // when video ends or if user skips (double-tap video to skip), reveal main
+  sorryVideo.onended = revealMain;
+  // also allow user to click outside the video to skip if they want:
+  videoSection.addEventListener('click', (e) => {
+    if (e.target === videoSection) {
+      // stop video and proceed
+      try{ sorryVideo.pause(); } catch(e){}
+      revealMain();
+    }
+  }, { once:true });
+}
+
+function revealMain(){
+  videoSection.style.display = 'none';
+  mainContent.style.display = 'block';
+  // try to start background music (should be allowed because user already interacted)
+  bgMusic.play().catch(()=>{ /* if still blocked, user can tap image to start */ });
+  // trigger initial reveal of visible photos
+  scrollHandler();
+}
+
+// Track user gesture so we can try to auto-play audio/video
+function userGestureOccurred(){
+  // attach a no-op handler — presence of a user gesture earlier allows playback attempt
+  // no heavy logic required
+}
+
+// IMAGE reveal on scroll & tap-to-enlarge
+const photos = document.querySelectorAll('.photo');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.closest('.card').classList.add('visible');
+    }
+  });
+}, { threshold: 0.18 });
+
+photos.forEach(photo => {
+  observer.observe(photo);
+  // tap to open full-screen preview
+  photo.addEventListener('click', () => openPreview(photo));
+});
+
+// simple full-screen preview
+let previewEl = null;
+function openPreview(img){
+  // create overlay
+  if (previewEl) return;
+  previewEl = document.createElement('div');
+  previewEl.style = "position:fixed;inset:0;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;z-index:9999;";
+  const big = document.createElement('img');
+  big.src = img.src;
+  big.style = "max-width:94%;max-height:86%;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.6);";
+  previewEl.appendChild(big);
+  previewEl.addEventListener('click', () => {
+    document.body.removeChild(previewEl);
+    previewEl = null;
+  }, { once:true });
+  document.body.appendChild(previewEl);
+  // try to play music when preview opens (if not playing yet)
+  bgMusic.play().catch(()=>{});
+}
+
+// helper: initial scroll reveal run
+function scrollHandler(){
+  const imgs = document.querySelectorAll('.photo');
+  const trigger = window.innerHeight * 0.85;
+  imgs.forEach(img => {
+    const r = img.getBoundingClientRect();
+    if (r.top < trigger) img.closest('.card').classList.add('visible');
+  });
+}
+window.addEventListener('scroll', scrollHandler);
+window.addEventListener('resize', scrollHandler);
+// initial invocation
+scrollHandler();
+
+// Accessibility: allow keyboard 'Escape' to close preview if open
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && previewEl) {
+    document.body.removeChild(previewEl);
+    previewEl = null;
+  }
+});
+
+// OPTIONAL: prevent accidental text selection during swipe
+document.addEventListener('touchmove', function(){}, {passive:true});
+</script>
+</body>
+</html>
